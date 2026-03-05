@@ -21,6 +21,13 @@ public class Environment2DController : ControllerBase
         _authenticationService = authenticationService;
     }
 
+    [HttpGet("user/{ownerEmail}")]
+    public async Task<ActionResult<List<Environment2D>>> GetByOwnerAsync(string ownerEmail)
+    {
+        var environments = await _environment2DRepository.SelectByOwnerAsync(ownerEmail);
+        return Ok(environments);
+    }
+
     [HttpGet(Name = "GetEnvironment")]
     public async Task<ActionResult<List<Environment2D>>> GetAsync()
     {

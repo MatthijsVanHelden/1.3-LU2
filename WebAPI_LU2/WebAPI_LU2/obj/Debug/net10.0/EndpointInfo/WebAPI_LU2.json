@@ -349,6 +349,38 @@
         }
       }
     },
+    "/environment2d/user/{ownerEmail}": {
+      "get": {
+        "tags": [
+          "Environment2D"
+        ],
+        "parameters": [
+          {
+            "name": "ownerEmail",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Environment2D"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/environment2d": {
       "get": {
         "tags": [
@@ -653,21 +685,13 @@
             "type": "string",
             "format": "uuid"
           },
-          "ownerUserId": {
+          "ownerEmail": {
             "type": "string",
-            "format": "uuid"
+            "nullable": true
           },
           "name": {
             "type": "string",
             "nullable": true
-          },
-          "maxLength": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "maxHeight": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

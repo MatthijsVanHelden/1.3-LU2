@@ -13,12 +13,20 @@ namespace WebAPI_LU2.Repositories
         {
             this.sqlConnectionString = sqlConnectionString;
         }
+        public async Task<List<Environment2D>> SelectByOwnerAsync(string ownerEmail)
+        {
+            using var connection = new SqlConnection(sqlConnectionString);
+            var sql = "SELECT * FROM [dbo].[Environment2D] WHERE OwnerEmail = @OwnerEmail";
+
+            var result = await connection.QueryAsync<Environment2D>(sql, new { OwnerEmail = ownerEmail });
+            return result.ToList();
+        }
 
         public async Task InsertAsync(Environment2D environment2D)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                await sqlConnection.ExecuteAsync("INSERT INTO [Environment2D] (Id, OwnerUserId, Name, MaxLength, MaxHeight) VALUES (@Id, @OwnerUserId, @Name, @MaxLength, @MaxHeight)", environment2D);
+                await sqlConnection.ExecuteAsync("INSERT INTO [Environment2D] (Id, OwnerEmail, Name) VALUES (@Id, @OwnerEmail, @Name)", environment2D);
             }
         }
 
@@ -34,7 +42,7 @@ namespace WebAPI_LU2.Repositories
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                return await sqlConnection.QueryAsync<Environment2D>("SELECT * FROM [Object2D]");
+                return await sqlConnection.QueryAsync<Environment2D>("SELECT * FROM [Environment2D]");
             }
         }
 
@@ -44,8 +52,6 @@ namespace WebAPI_LU2.Repositories
             {
                 await sqlConnection.ExecuteAsync("UPDATE [Environment2D] SET " +
                                                  "Name = @Name, " +
-                                                 "MaxLength = @MaxLength, " +
-                                                 "MaxHeight = @MaxHeight " +
                                                  "WHERE Id = @Id", environment2D);
             }
         }

@@ -93,6 +93,6 @@ app.UseAuthorization();
 app.MapGroup("/account").MapIdentityApi<IdentityUser>().WithTags("Account");
 
 // Register all controller endpoints for the application.
-app.MapControllers();
+app.MapControllers().RequireAuthorization();
 
 app.Run();

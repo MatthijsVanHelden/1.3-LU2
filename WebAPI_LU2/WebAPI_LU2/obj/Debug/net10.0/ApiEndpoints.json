@@ -448,6 +448,30 @@
     "EndpointName": "DeleteEnvironment2D"
   },
   {
+    "ContainingType": "WebAPI_LU2.Controllers.Environment2DController",
+    "Method": "GetByOwnerAsync",
+    "RelativePath": "environment2d/user/{ownerEmail}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ownerEmail",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[WebAPI_LU2.Models.Environment2D, WebAPI_LU2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "WebAPI_LU2.Controllers.Object2DController",
     "Method": "AddAsync",
     "RelativePath": "object2d",
